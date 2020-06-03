@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'posts/base.html'%}
+{% block content %}
+<h1>
+    Homepage
+</h1>
+{% for p in post%}
+    <h3>
+        {{p.post_title}}
+    </h3>
+    <p>
+        {{p.post_content}}
+    </p>
+{% endfor%}
+{% endblock%}
