@@ -1,5 +1,4 @@
 {% load static %}
-{% load crispy_forms_tags %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -9,6 +8,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'posts/bootstrap.min.css'%}">
+      <link rel="stylesheet" href="{% static 'posts/main.css'%}">
 
     {% if title %}
     <title>GP - {{title}}</title>
@@ -18,7 +18,7 @@
   </head>
   <body class="container-fluid">
   <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-      <a class="navbar-brand" href="#">Mini Social By Godspower Eze</a>
+      <a class="navbar-brand" href="{% url 'home'%}">Mini Social By Godspower Eze</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -26,13 +26,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{% url 'home'%}">Home <span class="sr-only">(current)</span></a>
           </li>
             {% if user.is_authenticated %}
                 <a class="nav-link" href="#">My Account</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">Create Post</a>
+                <a class="nav-link" href="{% url 'newpost'%}">Create Post</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}">Logout</a>
@@ -42,7 +42,7 @@
                 <a class="nav-link" href="{% url 'login'%}">Login</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="">Register</a>
+                <a class="nav-link" href="{% url 'usercreation'%}">Register</a>
             {% endif %}
                 </li>
         </ul>

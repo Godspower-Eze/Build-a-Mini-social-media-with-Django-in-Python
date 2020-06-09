@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 
 
 def user_creation(request):
+    if request.user.is_authenticated:
+        return redirect('home')
     form = CreationForm()
     context = {
         'form': form
@@ -15,13 +17,15 @@ def user_creation(request):
             user = form.cleaned_data.get('username')
             form.save()
             messages.success(request, f'Account successfully created for {user}')
-            return redirect('home')
+            return redirect('login')
     elif request.method == 'GET':
         form = CreationForm()
     return render(request, 'users/creation_form.html', context)
 
 
 def user_login(request):
+    if request.user.is_authenticated:
+        return redirect('home')
     form = Login_Form()
     context = {
         'form': form
@@ -34,12 +38,13 @@ def user_login(request):
         if user is not None:
             login(request, user)
             messages.success(request, 'You have logged in successfully')
-            redirect('home')
+            return redirect('home')
         else:
             messages.error(request, 'Wrong credentials')
     elif request.method == 'GET':
         form = Login_Form()
     return render(request, 'users/login_user.html', context)
+
 
 def user_logout(request):
     logout(request)

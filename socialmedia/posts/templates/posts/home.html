@@ -1,14 +1,18 @@
 {% extends 'posts/base.html'%}
 {% block content %}
-<h1>
+<h1 id="first-h1">
     Homepage
 </h1>
 {% for p in post%}
+<div class="container" style="background-color:blue;height:100%;">
     <h3>
-        {{p.post_title}}
+        <a href="{% url 'post_detail' p.id%}">
+            {{p.post_title}}
+        </a>
     </h3>
     <p>
         {{p.post_content}}
     </p>
+</div>
 {% endfor%}
 {% endblock%}
