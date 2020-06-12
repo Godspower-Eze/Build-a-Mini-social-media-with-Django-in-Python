@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from .models import Posts
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 
 
 def home(request):
@@ -54,3 +55,6 @@ def delete_post(request, post_id):
     post = get_object_or_404(Posts, id=post_id)
     post.delete()
     return redirect('home')
+
+
+

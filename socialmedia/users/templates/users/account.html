@@ -1,0 +1,15 @@
+{% extends 'posts/base.html' %}
+{% block content %}
+            <div class="row">
+                <div class="col-md-8 pd-10">
+                <legend>
+                    My Profile
+                </legend>
+                    <div>
+                        <img class="rounded-circle" width="50%" src="{{ user.profile.picture.url }}">
+                        <h3>{{ user.email }}</h3>
+                        <h5>{{ user.profile.first_name }}</h5>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

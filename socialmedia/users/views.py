@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CreationForm, Login_Form
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -50,3 +50,7 @@ def user_logout(request):
     logout(request)
     messages.success(request, 'You have logged out successfully')
     return redirect('home')
+
+
+def account(request):
+    return render(request, 'users/account.html')
