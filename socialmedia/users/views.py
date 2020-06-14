@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from .forms import CreationForm, Login_Form
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from .forms import UpdateProfileForm, UpdateUserForm
+
 
 
 def user_creation(request):
@@ -53,4 +55,21 @@ def user_logout(request):
 
 
 def account(request):
-    return render(request, 'users/account.html')
+    p_form = UpdateProfileForm(instance=request.user.profile)
+    u_form = UpdateUserForm(instance=request.user)
+    context = {
+        'p_form': p_form,
+        'u_form': u_form
+    }
+    if request.method == 'POST':
+        p_form = UpdateProfileForm(request.POST, request.FILES,instance=request.user.profile)
+        u_form = UpdateProfileForm(request.POST, instance=request.user)
+        if p_form.is_valid() and u_form.is_valid():
+            p_form.save()
+            u_form.save()
+            messages.success( request,  'You have successfully updated your profile')
+            return redirect('.')
+    else:
+        p_form = UpdateProfileForm(instance=request.user.profile)
+        u_form = UpdateUserForm(instance=request.user)
+    return render(request, 'users/account.html', context)

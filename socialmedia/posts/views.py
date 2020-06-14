@@ -1,15 +1,23 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from .models import Posts
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.core.paginator import PageNotAnInteger, Paginator, EmptyPage
 
 
 def home(request):
     post = Posts.objects.all()
+    page = request.GET.get('page',1)
+    paginator = Paginator(post, 2)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
     context = {
-        'post': post
+        'posts':posts
     }
-    return render(request, 'posts/home.html', context)
+    return render(request, 'posts/home.html',context )
 
 
 def post_create(request):

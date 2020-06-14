@@ -3,7 +3,7 @@
 <h1 id="first-h1">
     Homepage
 </h1>
-{% for p in post%}
+{% for p in posts%}
 <div class="container" style="background-color:blue;height:100%;">
     <h3>
         <a href="{% url 'post_detail' p.id%}">
@@ -15,4 +15,25 @@
     </p>
 </div>
 {% endfor%}
+{% if posts.has_other_pages %}
+    <ul class="pagination">
+        {% if posts.has_previous %}
+            <li><a class="btn btn-outline-info" href="?page={{posts.previous_page_number}}">&laquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in posts.paginator.page_range %}
+            {% if posts.number == i %}
+                <li class="active btn btn-info"><span>{{i}}<span class="sr-only">(current)</span></span></li>
+            {% else %}
+                <li><a class="btn btn-outline-info" href="?page={{i}}">{{i}}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if posts.has_next %}
+            <li><a class="btn btn-outline-info" href="?page={{posts.next_page_number}}">&raquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+    </ul>
+{% endif %}
 {% endblock%}
